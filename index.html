@@ -33,6 +33,69 @@
     <link href="css/wp-custom.css" rel="stylesheet" />
 
     <title>Home | Vie</title>
+        <style>
+        /* Styling for the popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        /* Background overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Video styling */
+        video {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+        }
+
+        /* Custom styling for the clickable card */
+        .local-card-video {
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .local-card-video img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
 
   </head>
 
@@ -1453,7 +1516,7 @@
 
               </div>
 
-              <div class="local-card-txt">
+              <!-- <div class="local-card-txt">
 
                 <h5>Global Patron</h5>
 
@@ -1468,7 +1531,25 @@
                 <a href="https://d1he1uqv6omu93.cloudfront.net/SSH+Video+.mp4" target="_blank"> </a>
 
               </div>
+ -->
 
+ <div class="local-card-txt">
+        <h5>Global Patron</h5>
+    </div>
+
+    <div class="local-card-video" id="videoTrigger">
+        <img src="images/local-card1.png" alt="Video Thumbnail">
+    </div>
+
+    <!-- Popup content -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <video id="videoPlayer" controls>
+            <source src="https://d1he1uqv6omu93.cloudfront.net/SSH+Video+.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <button id="closePopup">Close</button>
+    </div>
             </div>
 
           </div>
@@ -2667,7 +2748,32 @@
 
     <!-- Footer Ends -->
 
+<script>
+        // Get elements
+        const videoTrigger = document.getElementById('videoTrigger');
+        const closePopupBtn = document.getElementById('closePopup');
+        const popup = document.getElementById('popup');
+        const overlay = document.getElementById('overlay');
+        const videoPlayer = document.getElementById('videoPlayer');
 
+        // Show popup and play video
+        videoTrigger.addEventListener('click', () => {
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+            videoPlayer.play(); // Start video playback
+        });
+
+        // Hide popup and stop video
+        const closePopup = () => {
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+            videoPlayer.pause(); // Pause video playback
+            videoPlayer.currentTime = 0; // Reset video to the beginning
+        };
+
+        closePopupBtn.addEventListener('click', closePopup);
+        overlay.addEventListener('click', closePopup);
+    </script>
 
     <script src="js/jquery-3.6.0.min.js"></script>
 
